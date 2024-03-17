@@ -5,12 +5,14 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'this'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+socketio = SocketIO(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -98,5 +100,13 @@ def logout():
     logout_user
     return redirect(url_for('login'))
 
+@socketio.on('code_change')
+def handle_code_change(data):
+    code = data['code']
+    # Broadcast the code change to all clients except the sender
+    emit('code_change', {'code': code}, broadcast=True, include_self=False)
+
+
 if __name__ == '__main__':
     app.run(host = '0.0.0.0',debug=True)
+    socketio.run(app)
