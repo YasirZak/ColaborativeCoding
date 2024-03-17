@@ -65,6 +65,10 @@ with app.app_context():
 def index():
     
     return render_template("home.html")
+
+@app.route('/index')
+def Index():
+    return render_template('index.html')
     
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
