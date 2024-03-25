@@ -7,6 +7,8 @@ from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from flask_socketio import SocketIO, emit
 
+document = {'text': ''}
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'this'
@@ -104,11 +106,16 @@ def logout():
     logout_user
     return redirect(url_for('login'))
 
-@socketio.on('code_change')
-def handle_code_change(data):
-    code = data['code']
-    # Broadcast the code change to all clients except the sender
-    emit('code_change', {'code': code}, broadcast=True, include_self=False)
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
+    emit('document_update', document) 
+
+@socketio.on('text_change')
+def handle_text_change(data):
+    global document
+    document['text'] = data['text']
+    emit('document_update', document, broadcast=True)
 
 
 if __name__ == '__main__':
