@@ -6,6 +6,8 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from flask_socketio import SocketIO, emit
+from subprocess import Popen, PIPE
+#use "pip install -r requirements.txt" to install all modules
 
 document = {'text': ''}
 
@@ -103,7 +105,7 @@ def dashboard():
 @app.route('/logout', methods=['GET', 'POST'] )
 @login_required
 def logout():
-    logout_user
+    logout_user()
     return redirect(url_for('login'))
 
 @socketio.on('connect')
@@ -116,6 +118,20 @@ def handle_text_change(data):
     global document
     document['text'] = data['text']
     emit('document_update', document, broadcast=True)
+
+@app.route('/compile', methods=['POST'])
+def compile():
+    code = request.form['code']
+    try:
+        process = Popen(['python', '-c', code], stdout=PIPE, stderr=PIPE)
+        output, error = process.communicate(timeout=10)  # Timeout to prevent long-running processes
+        if error:
+            return error.decode('utf-8')
+        else:
+            return output.decode('utf-8')
+    except Exception as e:
+        return str(e)    
+    return "Code compiled successfully!"
 
 
 if __name__ == '__main__':
