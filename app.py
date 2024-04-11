@@ -108,6 +108,7 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')

@@ -1,16 +1,23 @@
 const socket = io();
-const editor = document.getElementById('code-editor');
+
 
 socket.on('connect', () => {
     console.log('Connected to server');
 });
 
 socket.on('document_update', (data) => {
-    editor.value = data.text;
+    console.log('Received document_update:', data);
+    setText(data.text);
 });
 
-editor.addEventListener('input', (event) => {
-    const text = editor.value;
+// editorC.addEventListener('input', (event) => {
+//     const text = getText();
+//     console.log('Sending text_change:', text);
+//     socket.emit('text_change', { text });
+// });
+
+editor.on('change', () => {
+    const text = getText();
     socket.emit('text_change', { text });
 });
 

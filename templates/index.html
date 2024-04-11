@@ -17,7 +17,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script> 
+    <!--<script src="{{ url_for('static', filename='script.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/codemirror/lib/codemirror.js') }}"></script>
     <script src="{{ url_for('static', filename='js/codemirror/mode/python/python.js') }}"></script>
     <script src="{{ url_for('static', filename='js/codemirror/addon/edit/closebrackets.js') }}"></script> 
@@ -29,6 +29,32 @@
             autoCloseBrackets: true,
             autofocus: true
         });
+        
+        // Socket.IO initialization
+        const socket = io();
+
+        // Socket.IO event handlers
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socket.on('document_update', (data) => {
+            const cursorpos = editor.getCursor();
+            if (data.text !== lastReceivedText) {
+                console.log('Received update:', data);
+                // Update editor content with the new data
+                editor.setValue(data.text);
+                lastReceivedText = data.text;
+            editor.setCursor(cursorpos)
+            }
+        });
+
+        editor.on('change', () => {
+            const text = editor.getValue();
+            socket.emit('text_change', { text });
+        });
+        var lastReceivedText = '';
+
         function compileCode() {
             var code = editor.getValue();
             fetch('/compile', {
@@ -47,9 +73,7 @@
             });
         }
         
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
     </script>
-
 </body>
 </html>
 
