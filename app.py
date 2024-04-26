@@ -7,10 +7,12 @@ from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from flask_socketio import SocketIO, emit
 from subprocess import Popen, PIPE
+import os
 #use "pip install -r requirements.txt" to install all modules
 
 document = {'text': ''}
 
+os.environ['PYDEVD_DISABLE_FILE_VALIDATION'] = '1'
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'this'
@@ -120,7 +122,7 @@ def handle_text_change(data):
     document['text'] = data['text']
     emit('document_update', document, broadcast=True)
 
-@app.route('/compile', methods=['POST'])
+@app.route('/compile', methods=['GET','POST'])
 def compile():
     code = request.form['code']
     try:
