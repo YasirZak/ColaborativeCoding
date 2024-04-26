@@ -1,19 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" type="text/css"
+    href="static\new css.css"
 </head>
 <body>
+    <div class="uselogo">
+        <img src="3d-user-icon-on-transparent-background-free-png.jpg"/>
+    </div>
     <h2>Login</h2>
+    <div class="logo"></div>
     <form method="post" action ="">
-        {{ form.hidden_tag() }}
-        {{ form.username }}
-        {{ form.password }}
-        {{ form.submit }}
-    </form>   
-    <a href ="{{url_for('signup')}}">dont have an account? signup!</a><br>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
     
+    </form>
+    <a href ="{{url_for('signup')}}">dont have an account? signup!</a><br>
 </body>
 </html>

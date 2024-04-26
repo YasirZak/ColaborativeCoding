@@ -1,0 +1,137 @@
+@keyframes example {
+    from {background-color: rgb(174, 164, 164);
+        opacity: 0%;
+    }
+    to {background-color: rgb(18, 18, 17);
+        opacity: 100%;
+    }
+  }
+body{
+    margin: 0;
+
+    background-image: url(../static/wp3530389.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: aliceblue;
+    position: absolute;
+    top: 125px;
+    border: 4px rgb(224, 212, 212) solid;
+    width: 40%;
+    padding: 2%;
+    position: relative;
+    left: 30%;
+    right: 15%;
+    border-radius: 10px;
+    outline-style: inset;
+    outline-color: rgb(238, 196, 151);
+    outline-width: 3.5px;
+    border: 5px rgb(67, 64, 52) solid;
+    animation-name: example;
+    animation-duration: 2.10s;
+    
+
+
+
+  
+
+
+    
+}
+img {
+
+    position: absolute;
+    left: 295px;
+    top: 0px;
+    width: 14%;
+    height: 28%;
+    
+}
+
+
+h2{
+    text-align: center;
+    font-size: 50px;
+    background-blend-mode: lighten;
+
+}
+label[for="username"]{
+    font-family: "Lucida handwriting";
+    font-size: 25px;
+    text-align: left 20%;
+    position: absolute;
+    left: 125px;
+    top: 155px;
+
+    
+}
+label[for="password"]{
+    font-family: "Lucida handwriting";
+    font-size: 25px;
+    text-align: left 20%;
+    position: absolute;
+    left: 125px;
+    top: 210px;
+}
+input[type="text"]{
+    width: 25%;
+    padding: 3px;
+    border-radius: 5px;
+    border: 3px rgb(191, 147, 147) solid;
+    position: absolute;
+    top: 160px;
+    left: 290px;
+
+}
+
+input[type="password"]{
+    width: 25%;
+    padding: 3px;
+    border-radius: 5px;
+    border: 3px rgb(191, 147, 147) solid;
+    position: absolute;
+    top: 210px;
+    left: 290px;
+}
+input[type="submit"]{
+    width: 15%;
+    position: relative;
+    top: 15px;
+    left: 230px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px rgb(191, 147, 147) solid;
+
+}
+input[type="text"]:hover{
+    width: 25%;
+    padding: 3px;
+    background-color: rgb(228, 225, 225);
+    border-radius: 5px;
+    border: 2px rgb(191, 147, 147) solid;
+    position: absolute;
+    top: 160px;
+    left: 290px;
+
+}
+
+input[type="password"]:hover{
+    width: 25%;
+    padding: 3px;
+    background-color: rgb(228, 225, 225);
+    border-radius: 5px;
+    border: 2px rgb(191, 147, 147) solid;
+    position: absolute;
+    top: 210px;
+    left: 290px;
+}
+input[type="submit"]:hover{
+    width: 15%;
+    background-color: rgb(236, 250, 106);
+    position: relative;
+    top: 15px;
+    left: 230px;
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px rgb(137, 185, 244) solid;
+}
+
