@@ -26,6 +26,7 @@
     <script src="{{ url_for('static', filename='js/codemirror/mode/python/python.js') }}"></script>
     <script src="{{ url_for('static', filename='js/codemirror/addon/edit/closebrackets.js') }}"></script> 
     <script>
+        var currentDocument;
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             mode: 'python', 
             theme: 'monokai',
@@ -49,6 +50,7 @@
         });
 
         socket.on('document_update', (data) => {
+            currentDocument = data;
             const cursorpos = editor.getCursor();
             if (data.text !== lastReceivedText) {
                 console.log('Received update:', data);
@@ -59,9 +61,10 @@
             }
         });
 
-        editor.on('change', () => {
-            const text = editor.getValue();
-            socket.emit('text_change', { text });
+
+        editor.on('change', function(cm) => {
+            currentDocument.text = cm.getValue();
+            socket.emit('text_change', currentDocument);
         });
         var lastReceivedText = '';
 
