@@ -122,12 +122,13 @@ def handle_text_change(data):
     document['text'] = data['text']
     emit('document_update', document, broadcast=True)
 
-@app.route('/compile', methods=['GET','POST'])
+@app.route('/compile', methods=['POST'])
 def compile():
     code = request.form['code']
+    Input = request.form['Input']
     try:
-        process = Popen(['python', '-c', code], stdout=PIPE, stderr=PIPE)
-        output, error = process.communicate(timeout=10)  # Timeout to prevent long-running processes
+        process = Popen(['python', '-c', code], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        output, error = process.communicate(input=Input.encode(), timeout=10)  # Encode input string to bytes
         if error:
             return error.decode('utf-8')
         else:

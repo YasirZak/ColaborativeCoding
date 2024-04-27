@@ -12,6 +12,10 @@
     <div class="row">
         <textarea name='raw_data' id="code-editor" class = "form-control"></textarea>
     </div>
+    <label>Input</label>
+    <div class="row">
+        <textarea name='Input_data' id="Input" class = "form-control"></textarea>
+    </div>
     <button onclick="compileCode()">Compile</button>
     <div id="output"></div>
 
@@ -29,7 +33,13 @@
             autoCloseBrackets: true,
             autofocus: true
         });
-        
+        var Box = CodeMirror.fromTextArea(document.getElementById('Input'), {
+            mode: 'python', 
+            theme: 'monokai',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            autofocus: true
+        });
         // Socket.IO initialization
         const socket = io();
 
@@ -57,12 +67,13 @@
 
         function compileCode() {
             var code = editor.getValue();
+            var Input = Box.getValue();
             fetch('/compile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: 'code=' + encodeURIComponent(code),
+                body: 'code=' + encodeURIComponent(code) + '&Input=' + encodeURIComponent(Input),
             })
             .then(response => response.text())
             .then(result => {
