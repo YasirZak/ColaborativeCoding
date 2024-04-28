@@ -43,6 +43,7 @@
         });
         // Socket.IO initialization
         const socket = io();
+        var currentDocument;
 
         // Socket.IO event handlers
         socket.on('connect', () => {
@@ -50,21 +51,22 @@
         });
 
         socket.on('document_update', (data) => {
-            currentDocument = data;
             const cursorpos = editor.getCursor();
+            currentDocument = data;
             if (data.text !== lastReceivedText) {
                 console.log('Received update:', data);
                 // Update editor content with the new data
                 editor.setValue(data.text);
                 lastReceivedText = data.text;
-            editor.setCursor(cursorpos)
+            editor.setCursor(cursorpos)     
             }
         });
 
 
-        editor.on('change', function(cm) => {
-            currentDocument.text = cm.getValue();
-            socket.emit('text_change', currentDocument);
+        editor.on('change', () => {
+            const updatedText = editor.getValue();
+            console.log('Change detected:', currentDocument.text);
+            socket.emit('text_change',updatedText, currentDocument);
         });
         var lastReceivedText = '';
 

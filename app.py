@@ -155,7 +155,7 @@ def handle_connect():
 
 @socketio.on('text_change')
 def handle_text_change(data, document):
-    document.text = data['text']
+    document['text'] = data
     emit('document_update', document, broadcast=True)
 
 @app.route('/compile', methods=['POST'])
