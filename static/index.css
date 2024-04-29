@@ -1,0 +1,37 @@
+body{
+    background-image: url(../static/bg.jpg);
+    background-size: 100%;
+}
+#output {
+    color: aliceblue;
+    border: 2px white solid;
+    border-radius: 5px;
+    background: rgba(39, 40, 34, 0.5);
+    padding-left: 10px;
+    position: relative;
+    top: 10px;
+    
+}
+label[for="input"] {
+    color: aliceblue;
+    font-size: 20px;
+    position: relative;
+    left: 700px;
+    font-weight: bold;
+
+}
+label[for="edit"] {
+    color: aliceblue;
+    font-size: 20px;
+    position: relative;
+    left: 690px;
+    font-weight: bold;
+}
+label[for="output"] {
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    left: 690px;
+    top: 3px;
+}

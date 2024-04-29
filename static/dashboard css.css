@@ -1,0 +1,198 @@
+/*body{
+    background: url("abstract-blue-light-pipe-speed-zoom-black-background-technology_1142-9530.jpg");
+    background-repeat: no-repeat;
+    color: aliceblue;
+    border: 2px rgb(238, 5, 5) solid;
+    height: 700px;
+    padding: 1%;
+}*/
+/* Style for body */
+/*body {
+    font-family: Arial, sans-serif;
+    background: url("wp3530389.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+
+    margin: 0;
+    padding: 2%;
+    animation: fadeIn 1s ease-in-out;
+    color: #f4f4f4;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}*/
+
+/* Style for main content */
+/*.container {
+    text-align: center;
+    margin-top: 50px;
+    color: #dfd1d1;
+    animation: slideInDown 1s ease-in-out;
+}*/
+
+/*@keyframes slideInDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}*/
+
+/* Style for links */
+/*a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+/* Style for pulse animation */
+/*@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
+}
+img {
+
+    position: absolute;
+    left: 41%;
+    top: 0px;
+    width: 14%;
+    height: 28%;
+
+
+    
+}*/
+@keyframes fadein {
+    from {background-color: rgb(174, 164, 164);
+        opacity: 0%;
+    }
+    to {background-color: rgb(18, 18, 17);
+        opacity: 100%;
+    }
+  }
+body{
+    font-family: Arial, sans-serif;
+    background-image: url(../static/wp3530389.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+    color: #f2f1f1;
+
+    margin: 0;
+    padding: 2%;
+    animation-name: fadein;
+    animation-duration: 2.10s;
+}
+
+.logo {
+    border: 2px white;
+    width: 20%;
+    height: 30%;
+    position: absolute;
+    top: 45px;
+    left: 635px;
+    background-image: url(../static/CodeCollab1-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: 68%;
+}
+.dashlogo {
+    border: 2px white;
+    width: 5%;
+    height: 7%;
+    position: absolute;
+    top: 20px;
+    left: 23px;
+    background-image: url(../static/dashboard3-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+.link-editor {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    top: 350px;
+    left: 60px;
+
+}
+
+.link-editor:hover {
+    background-color: #0056b3;
+}
+.link-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    position: absolute;
+    top: 630px;
+    left: 650px;
+
+}
+
+.link-home:hover {
+    background-color: #0056b3;
+}
+label[for="hello"]{
+    position: relative;
+    top: 200px;
+    left: 642px;
+    font-size: 50px;
+}
+label[for="comment"] {
+    position: relative;
+    top: 265px;
+    left: 380px;
+    font-size: 30px;
+}
+.gray-box {
+    width: 1520px;
+    height: 35px;
+    border: #4f6b6d 2px solid;
+    border-radius: 2px;
+    padding: 5px;
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    background-color: rgb(89, 104, 106);
+    color: rgb(233, 163, 77);
+    font-size: 29px;
+    z-index: -1;
+}
+h1{
+    color: rgb(233, 163, 77);
+    font-size: 33px;
+    position: absolute;
+    top: 7.5px;
+    left: 80px;
+
+}
