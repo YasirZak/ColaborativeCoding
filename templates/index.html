@@ -15,18 +15,15 @@
     <div class="row">
         <textarea name='raw_data' id="code-editor" class = "form-control"></textarea>
     </div>
-<<<<<<< Updated upstream
-    <button onclick="compileCode()">Compile</button>
-=======
-    </div>
+
     <button onclick="compileCode()">Run</button><br>
     
 
     <label for="input">Input</label>
     <div class="row">
         <textarea name='Input_data' id="Input" class = "form-control"></textarea>
+    </div>
     <label for="output">Output</label>
->>>>>>> Stashed changes
     <div id="output"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
@@ -36,6 +33,13 @@
     <script src="{{ url_for('static', filename='js/codemirror/addon/edit/closebrackets.js') }}"></script> 
     <script>
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'python', 
+            theme: 'monokai',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            autofocus: true
+        });
+        var Box = CodeMirror.fromTextArea(document.getElementById('Input'), {
             mode: 'python', 
             theme: 'monokai',
             lineNumbers: true,
@@ -69,21 +73,22 @@
         var lastReceivedText = '';
 
         function compileCode() {
-            var code = editor.getValue();
-            fetch('/compile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'code=' + encodeURIComponent(code),
-            })
-            .then(response => response.text())
-            .then(result => {
-                document.getElementById('output').innerText = result;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        var code = editor.getValue();
+        var Input = Box.getValue();
+        fetch('/compile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'code=' + encodeURIComponent(code) + '&Input=' + encodeURIComponent(Input),
+        })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('output').innerText = result;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         }
         
     </script>
