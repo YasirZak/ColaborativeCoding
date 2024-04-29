@@ -98,7 +98,7 @@ def create_file():
         new_file = File(filename = filename, content='')
         session.add(new_file)
         session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('edit_file', filename=filename))
     else:
         return 'File exists!'
     
@@ -129,11 +129,11 @@ def save_file():
         return 'Error: File not found!'
 
 
-"""
+
 @app.route('/index')
 def Index():
     return render_template('index.html')
-"""    
+   
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -160,7 +160,8 @@ def login():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    files = session.query(File).all()
+    return render_template('dashboard.html', files = files)
 
 @app.route('/logout', methods=['GET', 'POST'] )
 @login_required

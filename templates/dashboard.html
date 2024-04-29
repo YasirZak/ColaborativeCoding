@@ -10,7 +10,17 @@
 <body>
     <h1>hello  u are logged in</h1>
     <a href="{{url_for('logout')}}">press here for logout</a><br>
-    <a href="{{url_for('Index')}}">press here to access editor</a>
+    <h2>Files</h2>
+    <ul>
+        {% for file in files %}
+            <li><a href="{{url_for('edit_file',filename=file.filename)}}">{{file.filename}}</a></li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('create_file') }}">
+        <label for="filename">Filename:</label>
+        <input type="text" id="filename" name="filename" required>
+        <button type="submit">Create File</button>
+    </form>
     
 
 

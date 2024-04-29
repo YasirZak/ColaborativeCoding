@@ -11,17 +11,7 @@
     <a href ="{{url_for('login')}}">Login</a><br>
     <a href ="{{url_for('signup')}}">signup</a><br>
 
-    <h2>Files</h2>
-    <ul>
-        {% for file in files %}
-            <li><a href="{{url_for('edit_file',filename=file.filename)}}">{{file.filename}}</a></li>
-        {% endfor %}
-    </ul>
-    <form method="POST" action="{{ url_for('create_file') }}">
-        <label for="filename">Filename:</label>
-        <input type="text" id="filename" name="filename" required>
-        <button type="submit">Create File</button>
-    </form>
+    
     <script type="text/javascript">
         var socket = io();
 
