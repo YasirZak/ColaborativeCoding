@@ -10,7 +10,11 @@
 </head>
 <body>
     <div class="row">
-        <textarea name='raw_data' id="code-editor" class = "form-control"></textarea>
+        <form action="{{ url_for(('save_file')) }}" method="POST">
+            <input type="hidden" name="filename" value="{{ filename }}">  <textarea name="rawdata" id="code-editor" class="form-control">{{ content }}</textarea>
+            <button type="submit">Save File</button>
+        </form>
+        
     </div>
     <label>Input</label>
     <div class="row">
@@ -26,6 +30,7 @@
     <script src="{{ url_for('static', filename='js/codemirror/mode/python/python.js') }}"></script>
     <script src="{{ url_for('static', filename='js/codemirror/addon/edit/closebrackets.js') }}"></script> 
     <script>
+        var currentDocument;
         var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             mode: 'python', 
             theme: 'monokai',
@@ -42,6 +47,7 @@
         });
         // Socket.IO initialization
         const socket = io();
+        var currentDocument;
 
         // Socket.IO event handlers
         socket.on('connect', () => {
@@ -50,18 +56,21 @@
 
         socket.on('document_update', (data) => {
             const cursorpos = editor.getCursor();
+            currentDocument = data;
             if (data.text !== lastReceivedText) {
                 console.log('Received update:', data);
                 // Update editor content with the new data
                 editor.setValue(data.text);
                 lastReceivedText = data.text;
-            editor.setCursor(cursorpos)
+            editor.setCursor(cursorpos)     
             }
         });
 
+
         editor.on('change', () => {
-            const text = editor.getValue();
-            socket.emit('text_change', { text });
+            const updatedText = editor.getValue();
+            console.log('Change detected:', currentDocument.text);
+            socket.emit('text_change',updatedText, currentDocument);
         });
         var lastReceivedText = '';
 

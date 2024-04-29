@@ -6,7 +6,10 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from flask_socketio import SocketIO, emit
-from subprocess import Popen, PIPE
+from subprocess import Popen 
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 import os
 #use "pip install -r requirements.txt" to install all modules
 
@@ -19,6 +22,8 @@ app.config['SECRET_KEY'] = 'this'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 socketio = SocketIO(app)
+engine = create_engine('sqlite:///database.db')
+Base = declarative_base()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -58,24 +63,77 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
+class File(Base):
+    __tablename__ = 'files'
+
+    id = Column(Integer, primary_key=True)
+    filename = Column(String(255), nullable=False)
+    content = Column(String)
+
+    def save_to_db(self):
+        session = sessionmaker(bind=engine)()
+        session.add(self)
+        session.commit()
+        session.close()
 
 # Create the application context
 with app.app_context():
     # Create all database tables
     db.create_all()
 
-
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
 
 
 @app.route('/')
 def index():
-    
-    return render_template("home.html")
+    files = session.query(File).all()
+    return render_template("home.html", files = files)
 
+@app.route('/create_file',methods=['POST'])
+def create_file():
+    filename = request.form['filename']
+    if not session.query(File).filter_by(filename = filename).first():
+        new_file = File(filename = filename, content='')
+        session.add(new_file)
+        session.commit()
+        return redirect(url_for('index'))
+    else:
+        return 'File exists!'
+    
+@app.route('/edit/<filename>', methods=['GET','POST'])
+def edit_file(filename):
+    file = session.query(File).filter_by(filename = filename).first()
+    if request.method == 'GET':
+        if file:
+            return render_template('index.html', filename=filename, content=file.content)
+        else:
+            content = request.form.get('raw_data')
+            file.content = content  # Update file content
+            session.commit()
+            emit('document_update', file, broadcast=True)
+            return redirect(url_for('edit_file', filename=filename, content=content))
+
+@app.route('/save_file', methods=['POST'])
+def save_file():
+    filename = request.args.get('filename')  # Access filename from URL (if included)
+    file = session.query(File).filter_by(filename=filename).first()
+
+    if file:  # Check if file exists before accessing content
+        file.content = request.form.get('rawdata')
+        session.commit()
+        return 'Saved'
+    else:
+        # You could return an error message or create a new file
+        return 'Error: File not found!'
+
+
+"""
 @app.route('/index')
 def Index():
     return render_template('index.html')
-    
+"""    
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -116,10 +174,10 @@ def handle_connect():
     print('Client connected')
     emit('document_update', document) 
 
+
 @socketio.on('text_change')
-def handle_text_change(data):
-    global document
-    document['text'] = data['text']
+def handle_text_change(data, document):
+    document['text'] = data
     emit('document_update', document, broadcast=True)
 
 @app.route('/compile', methods=['POST'])
