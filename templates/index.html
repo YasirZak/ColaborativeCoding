@@ -10,7 +10,11 @@
 </head>
 <body>
     <div class="row">
-        <textarea name='raw_data' id="code-editor" class = "form-control"></textarea>
+        <form action="{{ url_for(('save_file')) }}" method="POST">
+            <input type="hidden" name="filename" value="{{ filename }}">  <textarea name="rawdata" id="code-editor" class="form-control">{{ content }}</textarea>
+            <button type="submit">Save File</button>
+        </form>
+        
     </div>
     <label>Input</label>
     <div class="row">

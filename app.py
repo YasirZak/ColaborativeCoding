@@ -70,6 +70,12 @@ class File(Base):
     filename = Column(String(255), nullable=False)
     content = Column(String)
 
+    def save_to_db(self):
+        session = sessionmaker(bind=engine)()
+        session.add(self)
+        session.commit()
+        session.close()
+
 # Create the application context
 with app.app_context():
     # Create all database tables
@@ -103,11 +109,26 @@ def edit_file(filename):
         if file:
             return render_template('index.html', filename=filename, content=file.content)
         else:
-            content = request.form['content']
+            content = request.form.get('raw_data')
             file.content = content  # Update file content
             session.commit()
             emit('document_update', file, broadcast=True)
-            return redirect(url_for('edit_file', filename=filename))
+            return redirect(url_for('edit_file', filename=filename, content=content))
+
+@app.route('/save_file', methods=['POST'])
+def save_file():
+    filename = request.args.get('filename')  # Access filename from URL (if included)
+    file = session.query(File).filter_by(filename=filename).first()
+
+    if file:  # Check if file exists before accessing content
+        file.content = request.form.get('rawdata')
+        session.commit()
+        return 'Saved'
+    else:
+        # You could return an error message or create a new file
+        return 'Error: File not found!'
+
+
 """
 @app.route('/index')
 def Index():
@@ -152,6 +173,7 @@ def logout():
 def handle_connect():
     print('Client connected')
     emit('document_update', document) 
+
 
 @socketio.on('text_change')
 def handle_text_change(data, document):
