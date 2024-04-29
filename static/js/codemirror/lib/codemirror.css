@@ -4,7 +4,7 @@
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
   height: 300px;
-  color: black;
+  color: rgb(255, 255, 255);
   direction: ltr;
 }
 
@@ -32,10 +32,11 @@
 .CodeMirror-linenumbers {}
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
-  min-width: 20px;
+  min-width: 10px;
   text-align: right;
-  color: #999;
+  color: #ffffff;
   white-space: nowrap;
+
 }
 
 .CodeMirror-guttermarker { color: black; }

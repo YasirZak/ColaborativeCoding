@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css"
+    href="static\new css.css"
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form method="post" action ="">
-        {{ form.hidden_tag() }}
-        {{ form.username }}
-        {{ form.password }}
-        {{ form.submit }}
-    </form> 
-    <a href ="{{url_for('login')}}">Already have an account? Login</a><br>
+    <div class="imgbox"></div>
+    <div class="box">
+        <h2>Sign Up</h2>
+        <label for="username">Username:</label>
+        <label for="password">Password:</label>
+        <form method="post" action ="">
+            {{ form.hidden_tag() }}
+            {{ form.username }}
+            {{ form.password }}
+            {{ form.submit }}
+        </form> 
+        <a href ="{{url_for('login')}}">Already have an account? Login</a><br>
+    </div>
+    <div class="logo"></div>
+
 </body>
 </html>

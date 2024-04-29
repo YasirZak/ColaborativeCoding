@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css"
+    href="static\dashboard css.css"
+    
 
 
 </head>
 <body>
-    <h1>hello  u are logged in</h1>
-    <a href="{{url_for('logout')}}">press here for logout</a><br>
-    <a href="{{url_for('Index')}}">press here to access editor</a>
+    <div class="logo"></div>
+    <div class="dashlogo"></div>
+    <div class="gray-box"></div>
+    <h1>Dashboard</h1>
+    <label for="hello">Hello!</label>
+    <label for="comment">You are logged in succesfully</label>
+    <a href="{{url_for('Index')}}" class="link-editor">press here to access editor</a>
+    <a href="{{url_for('logout')}}" class="link-home">press here to logout</a><br>
+
     
 
 

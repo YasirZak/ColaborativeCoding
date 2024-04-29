@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
+    <link rel="stylesheet" type="text/css"
+    href="static\home css.css"
 
-
+s
 </head>
 <body>
-    <a href ="{{url_for('login')}}">Login</a><br>
-    <a href ="{{url_for('signup')}}">signup</a><br>
+    <div class="logo"></div>
+    <div class="homepng"></div>
+    <div class="strip"></div>
+    <h1>Home</h1>
+    <div class="box"></div>
+    <label for="login-text">Press here to login :</label>
+    <label for="noaccount-text">Don't have an account?</label>
+    <label for="signup-text">Sign up here :</label>
+    <a href ="{{url_for('login')}}" class="link-login">Login</a><br>
+    <a href ="{{url_for('signup')}}" class="link-signup">Signup</a><br>
+
+
 
 
 

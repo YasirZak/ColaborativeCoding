@@ -1,0 +1,134 @@
+@keyframes example {
+    from {background-color: rgb(174, 164, 164);
+        opacity: 0%;
+    }
+    to {background-color: rgb(18, 18, 17);
+        opacity: 100%;
+    }
+  }
+body{
+    font-family: Arial, sans-serif;
+    background-image: url(../static/wp3530389.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+    color: #f2f1f1;
+
+    margin: 0;
+    padding: 2%;
+    animation-name: example;
+    animation-duration: 2.10s;
+}
+.logo {
+    border: 2px white;
+    width: 20%;
+    height: 30%;
+    position: absolute;
+    top: 45px;
+    left: 615px;
+    background-image: url(../static/CodeCollab1-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: 68%;
+}
+.homepng {
+    border: 2px white;
+    width: 5%;
+    height: 7%;
+    position: absolute;
+    top: 27.5px;
+    left: 45px;
+    background-image: url(../static/homejpg-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: 65%;
+}
+
+.homelogo img {
+    position: absolute;
+    top: 28px;
+    left: 30px;
+    width: 4.25%;
+    height: 5.75%;
+}
+.strip {
+    width: 1520px;
+    height: 35px;
+    border: #4f6b6d 2px solid;
+    border-radius: 2px;
+    padding: 5px;
+    position: absolute;
+    top: 26.5px;
+    left: 0px;
+    background-color: rgb(89, 104, 106);
+    
+    z-index: -1;
+}
+.box {
+    border: 3px rgb(234, 221, 134) solid;
+    border-radius: 5px;
+    width: 500px;
+    height: 240px;
+    position: absolute;
+    top: 220px;
+    left: 485px;
+}
+
+.link-login {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    top: 205px;
+    left: 380px;
+}
+.link-login:hover {
+    background-color: #0056b3;
+}
+.link-signup {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    top: 270px;
+    left: 740px;
+}
+.link-signup:hover {
+    background-color: #0056b3;
+}
+h1 {
+    position: absolute;
+    top: 0px;
+    left: 110px;
+    font-size: 40px;
+    color: rgb(233, 163, 77);
+
+}
+label[for="login-text"]{
+    font-size: 27px;
+    position: absolute;
+    top:255px;
+    left: 545px;
+}
+label[for="noaccount-text"]{
+    font-size: 20px;
+    position: relative;
+    top:265px;
+    left: 580px;
+}
+label[for="signup-text"]{
+    font-size: 27px;
+    position: relative;
+    top:330px;
+    left: 350px;
+}
